@@ -5,7 +5,7 @@ import AllCards from './AllCards';
 const Cards = async () => {
 
     const data = await getData()
-    console.log(data)
+    // console.log(data)
 
     return (
         <div className='grid grid-cols-1 lg:grid-cols-3 gap-5'>

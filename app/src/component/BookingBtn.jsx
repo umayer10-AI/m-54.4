@@ -3,7 +3,7 @@ import { bookingPost } from '@/lib/action';
 import React from 'react';
 
 const BookingBtn = ({p,id}) => {
-    console.log(p)
+    // console.log(p)
 
     const a = async () => {
         const b = {

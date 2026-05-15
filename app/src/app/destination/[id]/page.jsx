@@ -1,13 +1,20 @@
 import BookingBtn from "@/component/BookingBtn";
 import CancelData from "@/component/CancelData";
 import EditModal from "@/component/EditModal";
+import { auth } from "@/lib/auth";
 import { getId } from "@/lib/data";
+import { headers } from "next/headers";
 import Image from "next/image";
 
 const DetailsPage = async ({params}) => {
 
+    const {token} = await auth.api.getToken({
+      headers: await headers()
+    })
+    console.log(token)
+
     const {id} = await params
-    const p = await getId(id)
+    const p = await getId(id,token)
 
   return (
     <div className="py-10 px-4">
