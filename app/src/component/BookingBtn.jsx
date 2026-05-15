@@ -1,11 +1,17 @@
 "use client"
 import { bookingPost } from '@/lib/action';
+import { authClient } from '@/lib/auth-client';
 import React from 'react';
 
 const BookingBtn = ({p,id}) => {
     // console.log(p)
 
     const a = async () => {
+
+        const token = await authClient.token()
+        const t = token?.data
+        console.log(t)
+
         const b = {
             category: p.category,
             country: p.country,
@@ -16,7 +22,7 @@ const BookingBtn = ({p,id}) => {
             imageUrl: p.imageUrl,
             price: p.price,
         }
-        await bookingPost(b)
+        await bookingPost(b,t)
     }
 
     return (

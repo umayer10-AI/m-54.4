@@ -46,11 +46,12 @@ export const editUser = async (id,v) => {
     return data
 }
 
-export const bookingPost = async (v) => {
+export const bookingPost = async (v,t) => {
     const res = await fetch(`http://localhost:5000/booking`,{
         method: "POST",
         headers: {
-            "content-type":"application/json"
+            "content-type":"application/json",
+            authorization: `Bearer ${t?.token}`
         },
         body: JSON.stringify(v)
     })
