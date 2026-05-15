@@ -1,5 +1,6 @@
 "use client"
 import { editUser } from "@/lib/action";
+import { authClient } from "@/lib/auth-client";
 import {Button, FieldError, Input, Label, ListBox, Modal,Select, Surface, TextArea, TextField} from "@heroui/react";
 import React from 'react';
 import { useForm } from "react-hook-form";
@@ -9,7 +10,12 @@ const EditModal = ({p,id}) => {
     const {register,handleSubmit,formState: { errors }} = useForm()
     
         const a = async (v) => {
-            await editUser(id,v)
+
+          const token = await authClient.token()
+          const t = token?.data
+          // console.log(t)
+
+            await editUser(id,v,t)
         }
 
     return (
