@@ -1,11 +1,22 @@
 "use client"
 import { deleteBooking } from '@/lib/action';
+import { authClient } from '@/lib/auth-client';
 import { AlertDialog, Button } from '@heroui/react';
 import { Calendar, Eye, Tag } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 
 const Booking = ({p}) => {
+
+    const a = async () => {
+
+        const token = await authClient.token()
+        const t = token?.data
+        // console.log(t)
+
+        await deleteBooking(p._id,t)
+    }
+
     return (
         <div>
             <div className='shadow-md shadow-cyan-500 rounded-xl'>
@@ -73,7 +84,7 @@ const Booking = ({p}) => {
               <Button slot="close" variant="tertiary">
                 Cancel
               </Button>
-              <Button onClick={() => deleteBooking(p._id)} slot="close" variant="danger">
+              <Button onClick={a} slot="close" variant="danger">
                 Delete
               </Button>
 
