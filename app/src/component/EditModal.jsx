@@ -1,0 +1,177 @@
+"use client"
+import { editUser } from "@/lib/action";
+import {Button, FieldError, Input, Label, ListBox, Modal,Select, Surface, TextArea, TextField} from "@heroui/react";
+import React from 'react';
+import { useForm } from "react-hook-form";
+
+const EditModal = ({p,id}) => {
+
+    const {register,handleSubmit,formState: { errors }} = useForm()
+    
+        const a = async (v) => {
+            await editUser(id,v)
+        }
+
+    return (
+        <div>
+        <Modal>
+      <Button className="w-full py-5 rounded-2xl bg-yellow-400 text-black font-bold">
+            Edit Tour
+        </Button>
+      <Modal.Backdrop>
+        <Modal.Container placement="auto">
+          <Modal.Dialog>
+            <Modal.CloseTrigger />
+            <Modal.Header>
+              <Modal.Heading>Update Destination</Modal.Heading>
+
+            </Modal.Header>
+            <Modal.Body className="p-2">
+              <Surface variant="default">
+                <form onSubmit={handleSubmit(a)}
+                            className="p-6 space-y-8 mx-auto border border-pink-500 rounded-xl"
+                          >
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                              {/* Destination Name */}
+                              <div className="md:col-span-2">
+                                <TextField name="destinationName" defaultValue={p.destinationName} isRequired>
+                                  <Label>Destination Name</Label>
+                                  <Input placeholder="Bali Paradise" className="rounded-2xl" {...register("destinationName", { required: true })}/>
+                                  <FieldError />
+                                </TextField>
+                              </div>
+                
+                              {/* Country */}
+                              <TextField name="country" defaultValue={p.country} isRequired>
+                                <Label>Country</Label>
+                                <Input placeholder="Indonesia" className="rounded-2xl" {...register("country", { required: true })}/>
+                                <FieldError />
+                              </TextField>
+                
+                              {/* Category - Updated Select Component */}
+                              <div>
+                                <Select
+                                  name="category"
+                                  isRequired
+                                  className="w-full"
+                                  placeholder="Select category"
+                                defaultValue={p.category}
+                                >
+                                  <Label>Category</Label>
+                                  <Select.Trigger className="rounded-2xl">
+                                    <Select.Value />
+                                    <Select.Indicator />
+                                  </Select.Trigger>
+                                  <Select.Popover>
+                                    <ListBox>
+                                      <ListBox.Item id="Beach" textValue="Beach">
+                                        Beach
+                                        <ListBox.ItemIndicator />
+                                      </ListBox.Item>
+                                      <ListBox.Item id="Mountain" textValue="Mountain">
+                                        Mountain
+                                        <ListBox.ItemIndicator />
+                                      </ListBox.Item>
+                                      <ListBox.Item id="City" textValue="City">
+                                        City
+                                        <ListBox.ItemIndicator />
+                                      </ListBox.Item>
+                                      <ListBox.Item id="Adventure" textValue="Adventure">
+                                        Adventure
+                                        <ListBox.ItemIndicator />
+                                      </ListBox.Item>
+                                      <ListBox.Item id="Cultural" textValue="Cultural">
+                                        Cultural
+                                        <ListBox.ItemIndicator />
+                                      </ListBox.Item>
+                                      <ListBox.Item id="Luxury" textValue="Luxury">
+                                        Luxury
+                                        <ListBox.ItemIndicator />
+                                      </ListBox.Item>
+                                    </ListBox>
+                                  </Select.Popover>
+                                </Select>
+                              </div>
+                
+                              {/* Price */}
+                              <TextField name="price" defaultValue={p.price} type="number" isRequired>
+                                <Label>Price (USD)</Label>
+                                <Input
+                                  type="number"
+                                  placeholder="1299"
+                                  className="rounded-2xl"
+                                  {...register("price", { required: true })}
+                                />
+                                <FieldError />
+                              </TextField>
+                
+                              {/* Duration */}
+                              <TextField name="duration"defaultValue={p.duration} isRequired>
+                                <Label>Duration</Label>
+                                <Input
+                                  placeholder="7 Days / 6 Nights"
+                                  className="rounded-2xl"
+                                  {...register("duration", { required: true })}
+                                />
+                                <FieldError />
+                              </TextField>
+                
+                              {/* Departure Date */}
+                              <div className="md:col-span-2">
+                                <TextField name="departureDate" defaultValue={p.departureDate} type="date" isRequired>
+                                  <Label>Departure Date</Label>
+                                  <Input type="date" className="rounded-2xl" {...register("departureDate", { required: true })}/>
+                                  <FieldError />
+                                </TextField>
+                              </div>
+                
+                              {/* Image URL - Removed preview */}
+                              <div className="md:col-span-2">
+                                <TextField name="imageUrl" defaultValue={p.imageUrl} isRequired>
+                                  <Label>Image URL</Label>
+                                  <Input
+                                    type="url"
+                                    placeholder="https://example.com/bali-paradise.jpg"
+                                    className="rounded-2xl"
+                                    {...register("imageUrl", { required: true })}
+                                  />
+                                  <FieldError />
+                                </TextField>
+                              </div>
+                
+                              {/* Description */}
+                              <div className="md:col-span-2">
+                                <TextField name="description" defaultValue={p.description} isRequired>
+                                  <Label>Description</Label>
+                                  <TextArea
+                                    placeholder="Describe the travel experience..."
+                                    className="rounded-3xl"
+                                    {...register("description", { required: true })}
+                                  />
+                                  <FieldError />
+                                </TextField>
+                              </div>
+                            </div>
+                
+                            {/* Buttons */}
+                
+                            <Button
+                              type="submit"
+                                slot="close"
+                              variant="outline"
+                              className=" rounded-xl w-full py-5 bg-linear-to-br from-purple-500 to-pink-500 text-white"
+                            >
+                              Update destination
+                            </Button>
+                          </form>
+              </Surface>
+            </Modal.Body>
+          </Modal.Dialog>
+        </Modal.Container>
+      </Modal.Backdrop>
+    </Modal>
+        </div>
+    );
+};
+
+export default EditModal;
