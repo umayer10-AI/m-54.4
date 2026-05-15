@@ -19,9 +19,12 @@ export const createData = async(formData) => {
     return data
 }
 
-export const deleteData = async (id) => {
+export const deleteData = async (id,t) => {
     const res = await fetch(`http://localhost:5000/destination/${id}`,{
-        method: "DELETE"
+        method: "DELETE",
+        headers: {
+            authorization: `Bearer ${t?.token}`
+        }
     })
     const data = await res.json()
     if(data.deletedCount > 0){

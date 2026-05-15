@@ -1,9 +1,20 @@
 "use client"
 import { deleteData } from '@/lib/action';
+import { authClient } from '@/lib/auth-client';
 import { AlertDialog, Button } from '@heroui/react';
 import React from 'react';
 
 const CancelData = ({p,a}) => {
+
+    const b = async () => {
+
+        const token = await authClient.token()
+        const t = token?.data
+        console.log(t)
+
+        await deleteData(p,t)
+    }
+
     return (
         <AlertDialog>
       <Button variant="danger" className={'w-full py-5'}>Cancel Booking</Button>
@@ -25,7 +36,7 @@ const CancelData = ({p,a}) => {
               <Button slot="close" variant="tertiary">
                 Cancel
               </Button>
-              <Button onClick={() => deleteData(p)} slot="close" variant="danger">
+              <Button onClick={b} slot="close" variant="danger">
                 Confirm Delete
               </Button>
             </AlertDialog.Footer>

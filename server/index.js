@@ -69,7 +69,7 @@ const run = async () => {
             res.send(result)
         })
 
-        app.delete('/destination/:id', async (req,res) => {
+        app.delete('/destination/:id',verifyData, async (req,res) => {
             const {id} = req.params
             const query = {
                 _id: new ObjectId(id)
@@ -78,7 +78,7 @@ const run = async () => {
             res.json(result)
         })
 
-        app.put('/destination/:id', async (req,res) => {
+        app.put('/destination/:id',verifyData, async (req,res) => {
             const {id} = req.params
             const filter = {
                 _id: new ObjectId(id)
@@ -88,7 +88,6 @@ const run = async () => {
                 $set: m
             }
             const result = await userCollection.updateOne(filter,updateDocument)
-            console.log(result)
             res.send(result)
         })
 
