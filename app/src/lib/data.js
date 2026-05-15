@@ -4,7 +4,11 @@ export const getData = async () => {
 }
 
 export const getId = async (id) => {
-    const res = await fetch(`http://localhost:5000/destination/${id}`)
+    const res = await fetch(`http://localhost:5000/destination/${id}`,{
+        headers: {
+            authorization: "Paisi vai"
+        }
+    })
     return res.json()
 }
 
